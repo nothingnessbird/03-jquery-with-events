@@ -41,11 +41,11 @@ articleView.handleAuthorFilter = function() {
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       $('article').hide();
-      $('article[data-author="'+$(this).val()+'"]').show();
+      $('article[data-author="'+$(this).val()+'"]').fadeIn();
     } else {
       // DONE: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-      $('article:not(.template)').show();
+      $('article:not(.template)').fadeIn();
     }
     $('#category-filter').val('');
   });
@@ -59,9 +59,9 @@ articleView.handleCategoryFilter = function() {
   $('#category-filter').on('change', function() {
     if ($(this).val()) {
       $('article').hide();
-      $('article[data-category="'+$(this).val()+'"]').show();
+      $('article[data-category="'+$(this).val()+'"]').fadeIn();
     } else {
-      $('article:not(.template)').show();
+      $('article:not(.template)').fadeIn();
     }
     $('#author-filter').val('');
   });
@@ -75,14 +75,14 @@ articleView.handleMainNav = function() {
   //       data available to you on the .tab element that was clicked.
   $('.main-nav .tab:first').on('click', function(event){
     event.stopPropagation();
-    $('.tab-content').css({display: 'none'});
-    $('article:not(.template)').css({display: 'block'});
+    $('.tab-content').hide();
+    $('#articles').fadeIn();
   });
 
-  $('.main-nav .tab:nth-child(1)').on('click', function(event){
+  $('.main-nav .tab:nth-child(2)').on('click', function(event){
     event.stopPropagation();
-    $('.tab-content').css({display: 'none'});
-    $('#about').css({display: 'block'});
+    $('.tab-content').hide();
+    $('#about').fadeIn();
   });
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
@@ -103,6 +103,7 @@ articleView.setTeasers = function() {
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
+  articleView.handleMainNav();
   articleView.populateFilters();
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
